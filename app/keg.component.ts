@@ -8,8 +8,8 @@ import { Keg } from './keg.model';
     <div>
       <label>Name: {{keg.name}}</label>
       <p>Brand: {{ keg.brand }}</p>
-      <p>Price: {{ keg.price }}</p>
-      <p>Alcohol Content: {{ keg.alcoholContent }}</p>
+      <p>Price: \${{ keg.price }}</p>
+      <p>Alcohol Content: {{ keg.alcoholContent }}%</p>
       <p>Pints Remaining: {{ keg.pintsRemaining }}</p>
     </div>
   `
@@ -17,5 +17,4 @@ import { Keg } from './keg.model';
 
 export class KegComponent {
   public keg: Keg;
-
 }
