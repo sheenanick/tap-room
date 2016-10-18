@@ -1,5 +1,7 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Subscription }   from 'rxjs/Subscription';
 import { Keg } from './keg.model';
+import { KegService } from './keg.service';
 
 @Component({
   selector: 'keg-list',
@@ -27,16 +29,23 @@ import { Keg } from './keg.model';
     <button class="btn btn-danger" (click)="removePint(currentKeg)">Remove Pint</button>
     <button class="btn btn-secondary" (click)="editButtonHasBeenClicked(currentKeg)">Edit</button>
   </div>
-  `
+  `,
+  providers: [KegService]
 })
 
 export class KegListComponent {
+  constructor(private kegService: KegService) {
+
+  }
+  subscription: Subscription;
+  public childKegList: Keg[] = [];
   public maxToShow: number = 124;
   public sortBy: string = 'name';
   public order:boolean = true;
   onChangeSort(optionFromMenu) {
     this.sortBy = optionFromMenu;
   }
+
   toggleSortOrder() {
     this.order = (!this.order);
   }
@@ -47,7 +56,6 @@ export class KegListComponent {
       this.maxToShow = 10;
     }
   }
-  @Input() childKegList: Keg[];
   @Output() clickSender = new EventEmitter();
   editButtonHasBeenClicked(kegToEdit: Keg) {
     this.clickSender.emit(kegToEdit);
@@ -55,5 +63,12 @@ export class KegListComponent {
   @Output() pintClickSender = new EventEmitter();
   removePint(kegToEdit: Keg) {
     this.pintClickSender.emit(kegToEdit);
+  }
+  public kegs: Keg[];
+  getKegs() {
+    this.kegService.getKegs().then(kegs => this.kegs = kegs);
+  }
+  ngOnInit(): void {
+    this.getKegs();
   }
 }

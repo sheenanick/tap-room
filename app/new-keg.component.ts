@@ -1,5 +1,6 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { Keg } from './keg.model';
+import { KegService } from './keg.service';
 
 @Component({
   selector: 'new-keg',
@@ -15,13 +16,16 @@ import { Keg } from './keg.model';
       <input class="form-control" #newAlcoholContent type="number">
     </div>
     <button class="btn btn-primary" (click)="addClicked(newName.value, newBrand.value, newPrice.value, newAlcoholContent.value); newName.value=''; newBrand.value=''; newPrice.value=''; newAlcoholContent.value='';">Add</button>
-  `
+  `,
+    providers: [KegService]
 })
 
 export class NewKegComponent {
+  constructor(private kegService: KegService) {
+  }
   @Output() newKegSender = new EventEmitter();
   addClicked(name: string, brand: string, price: number, alcoholContent: number) {
     var newKegToAdd: Keg = new Keg(name, brand, price, alcoholContent);
-    this.newKegSender.emit(newKegToAdd);
+    this.kegService.addKeg(newKegToAdd);
   }
 }
