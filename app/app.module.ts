@@ -6,6 +6,7 @@ import { NewKegComponent }   from './new-keg.component';
 import { KegListComponent }   from './keg-list.component';
 import { KegComponent }   from './keg.component';
 import { EditKegComponent }   from './edit-keg.component';
+import { KegPipe } from './keg.pipe';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { EditKegComponent }   from './edit-keg.component';
     NewKegComponent,
     KegListComponent,
     KegComponent,
-    EditKegComponent
+    EditKegComponent,
+    KegPipe
   ],
   bootstrap:    [ AppComponent ]
 })

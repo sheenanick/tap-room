@@ -5,7 +5,7 @@ import { Keg } from './keg.model';
   selector: 'my-app',
   template: `
   <div class="container">
-    <h1>My Second Angular 2 App</h1>
+    <h1>Tap Room App</h1>
     <new-keg (newKegSender)="addKeg($event)"></new-keg>
     <edit-keg [childSelectedKeg]="selectedKeg" (doneClickedSender)="finishedEditing()"></edit-keg>
     <keg-list [childKegList]="masterKegList" (clickSender)="showDetails($event)"
